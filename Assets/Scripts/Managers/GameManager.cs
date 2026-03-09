@@ -138,28 +138,19 @@ public class GameManager : MonoBehaviour
         {
             GameOver("¡Te quedaste sin vidas!");
         }
-        else
+        /*else
         {
-            if (LevelManager.Instance != null) LevelManager.Instance.RespawnPlayerAtTop();
-        }
+            if (LevelManager.Instance != null) LevelManager.Instance.RespawnPlayerAtTop(); // Esto es para que el jugador reaparezca en la parte superior del bloque actual
+        }*/
     }
 
     public void FallDeath()
     {
         if (!isGameActive) return;
 
-        Lives--;
+        Lives = 0;
         if (UIManager.Instance != null) UIManager.Instance.UpdateHUD(Lives, Score);
-        OnPlayerHit?.Invoke();
-
-        if (Lives <= 0)
-        {
-            GameOver("¡Te caiste muy alto!");
-        }
-        else
-        {
-            if (LevelManager.Instance != null) LevelManager.Instance.RespawnPlayerAtTop();
-        }
+        GameOver("¡Caíste al vacío!");
     }
 
     private void GameOver(string reason)

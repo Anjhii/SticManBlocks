@@ -88,7 +88,8 @@ public class PlayerController : MonoBehaviour
         rb.position = clampedPos;
 
         // 4. Lógica de caída rápida
-        if (rb.linearVelocity.y < 0)
+        // Solo multiplicamos la gravedad si estamos cayendo Y estamos en el aire
+        if (rb.linearVelocity.y < 0 && !isGrounded)
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }
@@ -97,7 +98,8 @@ public class PlayerController : MonoBehaviour
     private void ExecuteJump()
     {
         jumpsRemaining--; 
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Previene saltos hacia la estratosfera
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        
+        //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 }
