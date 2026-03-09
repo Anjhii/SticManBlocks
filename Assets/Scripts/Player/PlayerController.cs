@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [Header("Collision Settings")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+
+    public Animator animator;
     
     private Rigidbody2D rb;
     private BoxCollider2D col;
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        animator.SetBool("EnSuelo", isGrounded);
     }
 
     private void FixedUpdate()
@@ -45,6 +48,19 @@ public class PlayerController : MonoBehaviour
         // 1. Aplicar movimiento lateral
         float moveInput = InputManager.Instance.MovementX;
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+
+        float velocidadAbsoluta = Mathf.Abs(moveInput);
+        animator.SetFloat("Movimiento", velocidadAbsoluta);
+
+        // Girar el personaje según dirección
+        if (moveInput < 0)
+        {
+            transform.localScale = new Vector3(-0.6f, 0.6f, 0.6f);
+        }
+        else if (moveInput > 0)
+        {
+            transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+        }
 
         // 2. Limitar posición en X
         Vector2 clampedPos = rb.position;

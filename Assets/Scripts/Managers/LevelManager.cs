@@ -94,11 +94,13 @@ public class LevelManager : MonoBehaviour
         if (playerTransform == null) return;
 
         // Condición de derrota por caída
-        if (playerTransform.position.y < deathYLimit)
-        {
-            GameManager.Instance.LoseLife();
-        }
+        // En Update(), cambia la condición por esta:
+        float limiteDerrota = Camera.main.transform.position.y - Camera.main.orthographicSize - 1f;
 
+        if (playerTransform.position.y < limiteDerrota)
+        {
+            GameManager.Instance.FallDeath();
+        }
         // 4. LÓGICA DE PROGRESIÓN (Spawneo del Portal)
         if (!portalSpawned)
         {

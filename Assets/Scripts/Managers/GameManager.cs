@@ -141,6 +141,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void FallDeath()
+    {
+        if (!isGameActive) return;
+
+        Lives--;
+        if (UIManager.Instance != null) UIManager.Instance.UpdateHUD(Lives, Score);
+        OnPlayerHit?.Invoke();
+
+        if (Lives <= 0)
+        {
+            GameOver("¡Te caiste muy alto!");
+        }
+        else
+        {
+            if (LevelManager.Instance != null) LevelManager.Instance.RespawnPlayerAtTop();
+        }
+    }
+
     private void GameOver(string reason)
     {
         isGameActive = false; // Detiene el temporizador y bloquea puntajes
