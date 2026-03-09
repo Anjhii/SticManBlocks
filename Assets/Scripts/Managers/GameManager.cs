@@ -30,11 +30,14 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Sobrevive a los cambios de escena
+            
+            transform.SetParent(null); 
+            
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject); // Destruye duplicados
+            Destroy(gameObject); 
         }
     }
 

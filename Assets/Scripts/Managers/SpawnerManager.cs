@@ -41,6 +41,19 @@ public class SpawnerManager : MonoBehaviour
     private Transform playerTransform;
     private float lastSpawnedBlockX = 0f;
 
+    private void Awake()
+    {
+        // Inicializamos el Singleton (Esta es la solución definitiva al NullReference)
+        if (Instance == null) 
+        {
+            Instance = this;
+        }
+        else 
+        {
+            Destroy(gameObject); // Evita que existan dos Spawners al mismo tiempo
+        }
+    }
+
     private void Start()
     {
         

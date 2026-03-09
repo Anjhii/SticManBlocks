@@ -6,12 +6,16 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 15f;
     [SerializeField] private float jumpForce = 18f; 
-    
-    [Header("Jump Tweaks (Snappy Jump)")]
     [SerializeField] private float fallMultiplier = 3.5f; 
     
-    // NUEVO: Cooldown para evitar que la física acumule multiplicadores de fuerza indeseados
-    [SerializeField] private float jumpCooldown = 0.1f; 
+    // NUEVO: Filtro para ignorar el ruido del acelerómetro
+    [Header("Input Filtering")]
+    [Tooltip("Valores por debajo de este número se considerarán como 0 (dispositivo quieto).")]
+    [SerializeField] private float deadZone = 0.05f; 
+
+    [Header("Double Jump Settings")]
+    [SerializeField] private int maxJumps = 2; // 1 salto normal + 1 en el aire
+    private int jumpsRemaining;
 
     [Header("Collision Settings")]
     [SerializeField] private Transform groundCheck;
@@ -23,8 +27,6 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D col;
     private bool isGrounded;
     private float screenBoundX;
-    
-    private float lastJumpTime; // Memoria del último salto
 
     private void Start()
     {
@@ -33,46 +35,57 @@ public class PlayerController : MonoBehaviour
         
         float playerHalfWidth = col.bounds.extents.x;
         screenBoundX = (Camera.main.orthographicSize * Camera.main.aspect) - playerHalfWidth;
-        
-        // ELIMINADO: La suscripción al evento OnJumpPressed ya no es necesaria
     }
 
     private void Update()
     {
+        // 1. Verificación del suelo y Animación
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-        animator.SetBool("EnSuelo", isGrounded);
+        
+        if (animator != null) 
+            animator.SetBool("EnSuelo", isGrounded);
+
+        // 2. Recargar saltos
+        if (isGrounded && rb.linearVelocity.y <= 0f)
+        {
+            jumpsRemaining = maxJumps;
+        }
+
+        // 3. Lógica del Doble Salto limpio
+        if (InputManager.Instance.WasJumpPressed)
+        {
+            if (jumpsRemaining > 0) ExecuteJump();
+        }
     }
 
     private void FixedUpdate()
     {
-        // 1. Aplicar movimiento lateral
-        float moveInput = InputManager.Instance.MovementX;
+        // --- LA MAGIA DEL DEAD ZONE ---
+        float rawInput = InputManager.Instance.MovementX;
+        float moveInput = 0f;
+
+        // Solo aceptamos el input si la inclinación es mayor a la zona muerta
+        if (Mathf.Abs(rawInput) > deadZone)
+        {
+            moveInput = rawInput;
+        }
+
+        // 1. Aplicar movimiento lateral (ahora filtrado)
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        float velocidadAbsoluta = Mathf.Abs(moveInput);
-        animator.SetFloat("Movimiento", velocidadAbsoluta);
-
-        // Girar el personaje según dirección
-        if (moveInput < 0)
+        // 2. Animaciones y Rotación Visual
+        if (animator != null)
         {
-            transform.localScale = new Vector3(-0.6f, 0.6f, 0.6f);
-        }
-        else if (moveInput > 0)
-        {
-            transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+            animator.SetFloat("Movimiento", Mathf.Abs(moveInput));
         }
 
-        // 2. Limitar posición en X
+        if (moveInput < 0) transform.localScale = new Vector3(-0.6f, 0.6f, 0.6f);
+        else if (moveInput > 0) transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+
+        // 3. Limitar posición en X
         Vector2 clampedPos = rb.position;
         clampedPos.x = Mathf.Clamp(clampedPos.x, -screenBoundX, screenBoundX);
         rb.position = clampedPos;
-
-        // 3. LÓGICA DE AUTO-SALTO CONTINUO
-        // Si la pantalla está pulsada, está tocando el suelo, y ya pasó el tiempo de enfriamiento
-        if (InputManager.Instance.IsJumpHeld && isGrounded)
-        {
-            Jump();
-        }
 
         // 4. Lógica de caída rápida
         if (rb.linearVelocity.y < 0)
@@ -81,14 +94,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void ExecuteJump()
     {
-        // Validación de seguridad para la inercia física
-        if (Time.time >= lastJumpTime + jumpCooldown)
-        {
-            lastJumpTime = Time.time;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
+        jumpsRemaining--; 
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Previene saltos hacia la estratosfera
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 }

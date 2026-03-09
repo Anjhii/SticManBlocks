@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
     public float MovementX => smoothedAccelX;
     
     // NUEVO: Propiedad de estado continuo. Devuelve true mientras el dedo siga en la pantalla.
-    public bool IsJumpHeld => controls.GamePlay.Jump.IsPressed();
+    public bool WasJumpPressed => controls.GamePlay.Jump.WasPressedThisFrame();
 
     public System.Action OnDoubleTapTwoFingers;
 
@@ -28,7 +28,6 @@ public class InputManager : MonoBehaviour
         else Destroy(gameObject);
 
         controls = new PlayerControls();
-        // ELIMINADO: controls.GamePlay.Jump.performed += ...
     }
 
     private void OnEnable()
