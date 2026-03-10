@@ -113,6 +113,13 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
+    public void StopSpawning()
+    {
+        CancelInvoke(nameof(SpawnBlocks));
+        CancelInvoke(nameof(SpawnObstacle));
+        Debug.Log("Límite de nivel alcanzado. Spawner apagado.");
+    }
+
     private void SpawnSingleBlock(int laneIndex)
     {
         float spawnX = lanePositionsX[laneIndex];
