@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public int CurrentLevel { get; private set; } = 1;
     public int SelectedSkinId { get; private set; } = 0;
     public string LastGameOverReason { get; private set; } = "";
+    public bool IsShieldActive { get; set; } = false;
+    public bool HasPowerUp => hasPowerUp;
 
     [Header("Time Settings")]
     [SerializeField] private float maxTime = 60f;

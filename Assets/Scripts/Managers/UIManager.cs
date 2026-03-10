@@ -11,7 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timeText;
     
     [Header("Power Up UI")]
-    [SerializeField] private Button powerUpButton; // Arrastra tu botón aquí en el Inspector
+    [SerializeField] private Button powerUpButton;
+    [SerializeField] private TextMeshProUGUI powerUpTimerText;
 
     private Image powerUpButtonImage;
 
@@ -34,6 +35,8 @@ public class UIManager : MonoBehaviour
         
         // Forzamos el estado inicial: Apagado y casi invisible
         TogglePowerUpButton(false); 
+
+        if (powerUpTimerText != null) powerUpTimerText.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
@@ -45,7 +48,7 @@ public class UIManager : MonoBehaviour
     public void UpdateHUD(int lives, int score)
     {
         livesText.text = $"Lives: {lives}";
-        scoreText.text = $"Score: {score}";
+        scoreText.text = $"{score}";
     }
 
     public void UpdateTime(float timeRemaining)
@@ -53,7 +56,7 @@ public class UIManager : MonoBehaviour
         // Formateamos el tiempo para que no muestre decimales feos.
         // Mathf.CeilToInt redondea hacia arriba, así 0.1 segundos se muestra como "1"
         int seconds = Mathf.CeilToInt(timeRemaining);
-        timeText.text = $"Time: {seconds}s";
+        timeText.text = $"{seconds}s";
     }
 
     private void TogglePowerUpButton(bool isAvailable)
@@ -72,6 +75,25 @@ public class UIManager : MonoBehaviour
             colorActivo.a = isAvailable ? 1f : 0.2f; 
             
             powerUpButtonImage.color = colorActivo;
+        }
+    }
+
+    public void UpdatePowerUpTimer(float timeRemaining)
+    {
+        if (powerUpTimerText == null) return;
+
+        if (timeRemaining > 0)
+        {
+            // Encendemos el texto si estaba apagado
+            if (!powerUpTimerText.gameObject.activeSelf) powerUpTimerText.gameObject.SetActive(true);
+            
+            // Mostramos el tiempo con 1 solo decimal (ej: "3.2s")
+            powerUpTimerText.text = timeRemaining.ToString("F1") + "s"; 
+        }
+        else
+        {
+            // Apagamos el texto cuando llega a 0
+            powerUpTimerText.gameObject.SetActive(false);
         }
     }
 }

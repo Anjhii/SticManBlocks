@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
+using System;
 
 public class InputManager : MonoBehaviour
 {
@@ -12,15 +13,15 @@ public class InputManager : MonoBehaviour
     private float smoothedAccelX;
     
     public float MovementX => smoothedAccelX;
-    
-    // NUEVO: Propiedad de estado continuo. Devuelve true mientras el dedo siga en la pantalla.
     public bool WasJumpPressed => controls.GamePlay.Jump.WasPressedThisFrame();
+    public Action<float> OnSwipeUp;
 
     public System.Action OnDoubleTapTwoFingers;
 
     private PlayerControls controls;
     private float lastTapTime = 0f;
     private const float doubleTapThreshold = 0.3f;
+    private Vector2 touchStartPos;
 
     private void Awake()
     {
@@ -52,14 +53,36 @@ public class InputManager : MonoBehaviour
             smoothedAccelX = Mathf.Lerp(smoothedAccelX, rawX, Time.deltaTime * smoothSpeed);
         }
 
-        // 2. Detección del PowerUp (Dos dedos)
+        // 2. Detección de Swipe Up con un dedo
+        if (Touch.activeTouches.Count == 1)
+        {
+            var touch = Touch.activeTouches[0];
+            
+            if (touch.phase == UnityEngine.InputSystem.TouchPhase.Began)
+            {
+                touchStartPos = touch.screenPosition;
+            }
+            else if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended)
+            {
+                Vector2 swipeDelta = touch.screenPosition - touchStartPos;
+
+                // Verificamos si el movimiento fue hacia ARRIBA y si fue más vertical que horizontal
+                if (swipeDelta.y > 50f && Mathf.Abs(swipeDelta.y) > Mathf.Abs(swipeDelta.x))
+                {
+                    // Convertimos la longitud de píxeles a un porcentaje de la pantalla (0.0 a 1.0)
+                    float normalizedMagnitude = Mathf.Clamp01(swipeDelta.y / Screen.height);
+                    OnSwipeUp?.Invoke(normalizedMagnitude);
+                }
+            }
+        }
+
+        // 3. Detección de Doble Tap con dos dedos
         if (Touch.activeTouches.Count == 2)
         {
             bool bothTapped = true;
             foreach (var touch in Touch.activeTouches)
             {
-                if (touch.phase != UnityEngine.InputSystem.TouchPhase.Began)
-                    bothTapped = false;
+                if (touch.phase != UnityEngine.InputSystem.TouchPhase.Began) bothTapped = false;
             }
 
             if (bothTapped)
@@ -69,10 +92,7 @@ public class InputManager : MonoBehaviour
                     OnDoubleTapTwoFingers?.Invoke();
                     lastTapTime = 0f;
                 }
-                else
-                {
-                    lastTapTime = Time.time;
-                }
+                else lastTapTime = Time.time;
             }
         }
     }

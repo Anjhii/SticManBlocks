@@ -25,19 +25,24 @@ public class NegativeItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Verificamos si chocó con el jugador
         if (collision.CompareTag("Player"))
         {
+            // ¿El escudo está activo?
+            if (GameManager.Instance.IsShieldActive)
+            {
+                // El escudo nos protege. Se destruye el obstáculo y NO restamos vidas.
+                Debug.Log("¡Escudo desvió el daño!");
+                Destroy(gameObject);
+                return; 
+            }
+
             // 1. Restamos los puntos
             GameManager.Instance.RemoveScore(penaltyPoints);
-            
-            // 2. Restamos la vida (Esta es la nueva línea)
+            // 2. Restamos la vida
             GameManager.Instance.LoseLife();
-            
             // 3. Destruimos el obstáculo
             Destroy(gameObject);
         }
-        // Si no tocó al jugador, pero llegó al límite inferior (Suelo), se destruye
         else if (collision.CompareTag("Ground"))
         {
             Destroy(gameObject);
