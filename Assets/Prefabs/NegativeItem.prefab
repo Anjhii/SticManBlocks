@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4271750169813144745}
   - component: {fileID: 6627247604063538844}
   - component: {fileID: 4000419159542729282}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NegativeItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,5 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced808e1af985374f9fbee2d37045992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NegativeItem
+  minSpeed: 1.5
+  maxSpeed: 6
   penaltyPoints: 15
-  fallSpeed: 1
