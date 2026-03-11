@@ -15,8 +15,16 @@ public class InputManager : MonoBehaviour
     public float MovementX => smoothedAccelX;
     public bool WasJumpPressed => controls.GamePlay.Jump.WasPressedThisFrame();
     public Action<float> OnSwipeUp;
-
     public System.Action OnDoubleTapTwoFingers;
+
+    [Header("Swipe Settings")]
+    [Tooltip("Porcentaje de la altura de la pantalla para evitar toques accidentales (Ej: 0.05 = 5%)")]
+    [Range(0.01f, 0.2f)]
+    [SerializeField] private float minSwipePercentage = 0.05f; 
+
+    [Tooltip("Porcentaje de la altura de pantalla necesario para el 100% del poder (Ej: 0.35 = 35%)")]
+    [Range(0.2f, 0.8f)]
+    [SerializeField] private float maxSwipePercentage = 0.45f;
 
     private PlayerControls controls;
     private float lastTapTime = 0f;
@@ -66,12 +74,23 @@ public class InputManager : MonoBehaviour
             {
                 Vector2 swipeDelta = touch.screenPosition - touchStartPos;
 
-                // Verificamos si el movimiento fue hacia ARRIBA y si fue más vertical que horizontal
-                if (swipeDelta.y > 50f && Mathf.Abs(swipeDelta.y) > Mathf.Abs(swipeDelta.x))
+                // Calculamos en píxeles cuánto representan nuestros porcentajes en este celular específico
+                float minSwipePixels = Screen.height * minSwipePercentage;
+                float maxSwipePixels = Screen.height * maxSwipePercentage;
+                Debug.Log($"Swipe Delta: {swipeDelta}, Min Swipe Pixels: {minSwipePixels}, Max Swipe Pixels: {maxSwipePixels}");
+
+                // 1. Verificamos que el swipe sea mayor al mínimo (evita accidentes)
+                // 2. Verificamos que sea predominantemente vertical
+                if (swipeDelta.y > minSwipePixels && Mathf.Abs(swipeDelta.y) > Mathf.Abs(swipeDelta.x))
                 {
-                    // Convertimos la longitud de píxeles a un porcentaje de la pantalla (0.0 a 1.0)
-                    float normalizedMagnitude = Mathf.Clamp01(swipeDelta.y / Screen.height);
+                    // Mathf.InverseLerp :
+                    // Si swipeDelta.y es igual a minSwipePixels, devuelve 0.0.
+                    // Si swipeDelta.y es igual o mayor a maxSwipePixels, devuelve 1.0 (limitado).
+                    // Si está a la mitad, devuelve 0.5.
+                    float normalizedMagnitude = Mathf.InverseLerp(minSwipePixels, maxSwipePixels, swipeDelta.y);
+                    
                     OnSwipeUp?.Invoke(normalizedMagnitude);
+                    Debug.Log($"Swipe Up Detectado con magnitud normalizada: {normalizedMagnitude}");
                 }
             }
         }

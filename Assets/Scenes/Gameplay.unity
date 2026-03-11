@@ -1765,10 +1765,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShieldController
   shieldVisual: {fileID: 1969269492}
-  minDuration: 1.5
-  maxDuration: 4.5
-  minScale: 1
-  maxScale: 2.5
+  minDuration: 2
+  maxDuration: 6
+  minScale: 2
+  maxScale: 4
 --- !u!1 &1068100097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,6 +1927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
   smoothSpeed: 10
+  minSwipePercentage: 0.05
+  maxSwipePercentage: 0.35
 --- !u!1 &1146409541
 GameObject:
   m_ObjectHideFlags: 0

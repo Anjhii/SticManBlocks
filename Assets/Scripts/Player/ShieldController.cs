@@ -9,10 +9,10 @@ public class ShieldController : MonoBehaviour
 
     [Header("Scaling Settings")]
     [SerializeField] private float minDuration = 2f; // Duración para un swipe muy corto
-    [SerializeField] private float maxDuration = 5f; // Duración para un swipe largo
+    [SerializeField] private float maxDuration = 6f; // Duración para un swipe largo
     
-    [SerializeField] private float minScale = 1.0f;    // Tamaño normal
-    [SerializeField] private float maxScale = 3f;    // Escudo gigante
+    [SerializeField] private float minScale = 2.0f;    // Tamaño normal
+    [SerializeField] private float maxScale = 4.0f;    // Escudo gigante
 
     private void Start()
     {
