@@ -179,6 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced808e1af985374f9fbee2d37045992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NegativeItem
-  minSpeed: 1.5
-  maxSpeed: 6
+  minSpeed: 6.9
+  maxSpeed: 7
   penaltyPoints: 15

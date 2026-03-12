@@ -3,12 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class NegativeItem : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    [Tooltip("Velocidad mínima aleatoria")]
-    [SerializeField] private float minSpeed = 1f;
-    [Tooltip("Velocidad máxima aleatoria")]
-    [SerializeField] private float maxSpeed = 6f;
-
     [Header("Penalty Settings")]
     [SerializeField] private int penaltyPoints = 15;
     
@@ -33,7 +27,10 @@ public class NegativeItem : MonoBehaviour
         halfHeight = col.bounds.extents.y;
 
         // 2. Asignamos una velocidad aleatoria única para esta instancia
-        currentSpeed = Random.Range(minSpeed, maxSpeed);
+        float minLevelSpeed = LevelManager.Instance.GetMinObstacleSpeed();
+        float maxLevelSpeed = LevelManager.Instance.GetMaxObstacleSpeed();
+        currentSpeed = Random.Range(minLevelSpeed, maxLevelSpeed);
+
 
         // 3. Dirección inicial aleatoria (Zig-Zag puro en cualquier dirección)
         float randomX = Random.value > 0.5f ? 1f : -1f; 

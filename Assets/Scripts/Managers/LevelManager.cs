@@ -6,7 +6,8 @@ public struct LevelConfig
 {
     public int numberOfScreens; // Altura objetivo (Ej: 1)
     public float blockFallSpeed; 
-    public float obstacleFallSpeed; 
+    public float minObstacleSpeed; 
+    public float maxObstacleSpeed; 
     public float spawnInterval;
     public float timeLimit;
     public int startingLives; 
@@ -137,8 +138,8 @@ public class LevelManager : MonoBehaviour
     }
 
     // --- GETTERS PÚBLICOS PARA EL RESTO DEL SISTEMA ---
-    // En el futuro, a estas variables se les sumará el "futureScrollSpeed"
     public float GetBlockSpeed() => currentConfig.blockFallSpeed;
-    public float GetObstacleSpeed() => currentConfig.obstacleFallSpeed;
+    public float GetMinObstacleSpeed() => currentConfig.minObstacleSpeed;
+    public float GetMaxObstacleSpeed() => currentConfig.maxObstacleSpeed;
     public float GetSpawnInterval() => currentConfig.spawnInterval;
 }

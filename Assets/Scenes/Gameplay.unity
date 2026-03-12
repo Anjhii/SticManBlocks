@@ -290,7 +290,6 @@ Transform:
   - {fileID: 734026536}
   - {fileID: 1997903467}
   - {fileID: 1287569874}
-  - {fileID: 615105166}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &278720593
@@ -758,50 +757,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &615105165
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 615105166}
-  - component: {fileID: 615105167}
-  m_Layer: 0
-  m_Name: PowerUpManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &615105166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615105165}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 261780086}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &615105167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615105165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e065bfc24d0e5274e8e437457d2b54da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PowerUpManager
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,21 +888,24 @@ MonoBehaviour:
   levels:
   - numberOfScreens: 2
     blockFallSpeed: 2
-    obstacleFallSpeed: 4
+    minObstacleSpeed: 1.5
+    maxObstacleSpeed: 2
     spawnInterval: 5
     timeLimit: 60
     startingLives: 3
     futureScrollSpeed: 0
   - numberOfScreens: 3
     blockFallSpeed: 3
-    obstacleFallSpeed: 4
+    minObstacleSpeed: 2
+    maxObstacleSpeed: 4
     spawnInterval: 0.8
     timeLimit: 45
     startingLives: 3
     futureScrollSpeed: 0
   - numberOfScreens: 3
     blockFallSpeed: 4
-    obstacleFallSpeed: 5
+    minObstacleSpeed: 5
+    maxObstacleSpeed: 7
     spawnInterval: 0.8
     timeLimit: 30
     startingLives: 3
@@ -1085,7 +1043,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 615105167}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PowerUpManager, Assembly-CSharp
         m_MethodName: ActivatePowerUp
         m_Mode: 1
