@@ -22,7 +22,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     public Animator animator;
-    
+
+    [Header("Skin Setup")]
+    [SerializeField] private Transform skinContainer;
+
     private Rigidbody2D rb;
     private BoxCollider2D col;
     private bool isGrounded;
@@ -35,6 +38,8 @@ public class PlayerController : MonoBehaviour
         
         float playerHalfWidth = col.bounds.extents.x;
         screenBoundX = (Camera.main.orthographicSize * Camera.main.aspect) - playerHalfWidth;
+
+        LoadSkin();
     }
 
     private void Update()
@@ -101,5 +106,18 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         
         //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+
+    private void LoadSkin()
+    {
+        GameObject skinPrefab = GameManager.Instance.GetSelectedSkinPrefab();
+        if (skinPrefab != null && skinContainer != null)
+        {
+            // Instanciamos la skin como hija del SkinContainer
+            GameObject mySkin = Instantiate(skinPrefab, skinContainer);
+            
+            // Atrapamos el Animator de esta nueva skin para que el movimiento lo controle
+            animator = mySkin.GetComponent<Animator>();
+        }
     }
 }

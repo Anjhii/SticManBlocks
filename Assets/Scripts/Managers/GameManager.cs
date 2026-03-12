@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     private float currentTime;
     private bool isGameActive = false;
 
+    [Header("Skin Database")]
+    [Tooltip("Arrastra aquí los prefabs visuales de tus skins en orden (0 = Default, 1 = Skin2, etc)")]
+    [SerializeField] private GameObject[] skinPrefabs;
+
     // EVENTO: Permite que otros scripts escuchen si el PowerUp está disponible
     public event Action<bool> OnPowerUpAvailabilityChanged;
     public event Action OnPlayerHit;
@@ -104,12 +108,6 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = false;
         SceneManager.LoadScene("Menu");
-    }
-
-    public void SetSkin(int skinId)
-    {
-        SelectedSkinId = skinId;
-        Debug.Log("Skin equipada: " + skinId);
     }
 
     //MÉTODOS DE GAMEPLAY (Con protección Null)
@@ -211,5 +209,33 @@ public class GameManager : MonoBehaviour
             CurrentLevel++;
             SceneManager.LoadScene("LevelTransition");
         }
+    }
+
+    public void SetSkin(int skinId)
+    {
+        SelectedSkinId = skinId;
+        Debug.Log("Skin equipada: " + skinId);
+    }
+
+    public GameObject GetSelectedSkinPrefab()
+    {
+        if (skinPrefabs == null || skinPrefabs.Length == 0) return null;
+        
+        // Seguro anti-errores por si se pide una skin que no existe
+        if (SelectedSkinId < 0 || SelectedSkinId >= skinPrefabs.Length) return skinPrefabs[0];
+        
+        return skinPrefabs[SelectedSkinId];
+    }
+
+    public int GetTotalSkins() 
+    {
+        return (skinPrefabs != null) ? skinPrefabs.Length : 0;
+    }
+
+    // Devuelve un prefab específico por su ID
+    public GameObject GetSkinPrefab(int index)
+    {
+        if (skinPrefabs == null || index < 0 || index >= skinPrefabs.Length) return null;
+        return skinPrefabs[index];
     }
 }

@@ -45,3 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   maxTime: 60
+  skinPrefabs:
+  - {fileID: 823590718860140441, guid: cb0f36c382707f442bf4d9a8c50812e5, type: 3}
+  - {fileID: 823590718860140441, guid: 1347ac74becb05344847e80733bc4dca, type: 3}

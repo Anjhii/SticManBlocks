@@ -130,15 +130,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void RespawnPlayerAtTop()
-    {
-        if (playerTransform == null || playerRb == null) return;
-        playerRb.linearVelocity = Vector2.zero;
-        float safeX = SpawnerManager.Instance.GetLastSpawnedBlockX();
-        float respawnY = SpawnerManager.Instance.GetSpawnY() + 3f; 
-        playerTransform.position = new Vector3(safeX, respawnY, 0f);
-    }
-
     // --- GETTERS PÚBLICOS PARA EL RESTO DEL SISTEMA ---
     public float GetBlockSpeed() => currentConfig.blockFallSpeed;
     public float GetMinObstacleSpeed() => currentConfig.minObstacleSpeed;
