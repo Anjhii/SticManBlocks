@@ -4,7 +4,6 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     [Header("Fall Settings")]
-    [SerializeField] private float fallSpeed = 1f; // Ajusta este valor en el Inspector
     
     private Rigidbody2D rb;
     private float currentSpeed;

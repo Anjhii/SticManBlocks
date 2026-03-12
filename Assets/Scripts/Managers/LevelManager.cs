@@ -24,7 +24,6 @@ public class LevelManager : MonoBehaviour
     
     [Header("Portal Settings")]
     [SerializeField] private GameObject portalPrefab;
-    [SerializeField] private float deathYLimit = -10f;
     
     private LevelConfig currentConfig;
     private Transform playerTransform;
@@ -126,15 +125,6 @@ public class LevelManager : MonoBehaviour
         Vector2 portalPos = new Vector2(0f, targetY + 0.5f); 
         Instantiate(portalPrefab, portalPos, Quaternion.identity);
         Debug.Log("¡Portal Generado! Ve hacia él.");
-    }
-
-    public void RespawnPlayerAtTop()
-    {
-        if (playerTransform == null || playerRb == null) return;
-        playerRb.linearVelocity = Vector2.zero;
-        float safeX = SpawnerManager.Instance.GetLastSpawnedBlockX();
-        float respawnY = SpawnerManager.Instance.GetSpawnY() + 3f; 
-        playerTransform.position = new Vector3(safeX, respawnY, 0f);
     }
 
     // --- GETTERS PÚBLICOS PARA EL RESTO DEL SISTEMA ---
