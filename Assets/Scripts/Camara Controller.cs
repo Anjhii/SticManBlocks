@@ -6,6 +6,9 @@ public class CamaraController : MonoBehaviour
     public float velocidadCamara = 0.025f;
     public Vector3 desplazamiento;
 
+    [Header("Límite superior de la cámara")]
+    [SerializeField] private float limiteY = 4.0993f; // <- Pon aquí el valor que encontraste
+
     private float maxYAlcanzada = 0f;
 
     private void Start()
@@ -21,6 +24,10 @@ public class CamaraController : MonoBehaviour
         float nuevaY = maxYAlcanzada > 0f
             ? Mathf.Lerp(transform.position.y, maxYAlcanzada, velocidadCamara)
             : 0f;
+
+        nuevaY = Mathf.Min(nuevaY, limiteY - Camera.main.orthographicSize);
+
+        Debug.Log($"CamaraY: {transform.position.y:F2} | NuevaY: {nuevaY:F2} | LimiteY: {limiteY:F2} | MaxAlcanzada: {maxYAlcanzada:F2}");
 
         transform.position = new Vector3(transform.position.x, nuevaY, transform.position.z);
     }

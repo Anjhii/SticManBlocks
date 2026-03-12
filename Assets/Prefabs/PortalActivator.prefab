@@ -89,7 +89,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.16, y: 2.02}
+  m_Size: {x: 0.20003125, y: 0.15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -128,17 +128,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.2}
+  m_Offset: {x: -0.08358385, y: 0.030199826}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.06, y: 2.59}
-    newSize: {x: 1.16, y: 2.02}
+    oldSize: {x: 1.8962961, y: 2}
+    newSize: {x: 0.20003125, y: 0.15}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.81, y: 1.64}
+  m_Size: {x: 0.7861197, y: 1.1796004}
   m_EdgeRadius: 0
 --- !u!114 &4384353653566794891
 MonoBehaviour:
@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a65abf442166b544be397d9818bedcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelPortal
+  portalAnimator: {fileID: 2183422643251429203, guid: 805929f70580dca4fa0d66c85db9e997, type: 3}
+  activateParam: isActive
 --- !u!95 &5442970173895469589
 Animator:
   serializedVersion: 7
@@ -162,7 +164,7 @@ Animator:
   m_GameObject: {fileID: 9160554926993863235}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dd1b0eb9bc5c82b4086c4617ceb75a8d, type: 2}
+  m_Controller: {fileID: 9100000, guid: a0a8fdc08713c0d419770944c550c048, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

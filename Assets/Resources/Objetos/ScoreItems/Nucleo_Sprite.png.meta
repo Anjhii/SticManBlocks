@@ -1,0 +1,387 @@
+fileFormatVersion: 2
+guid: ef6424b7ecba7fc4ea6bd4eccd763536
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3417751487902060749
+    second: Nucleo_Sprite_0
+  - first:
+      213: -479953273861637796
+    second: Nucleo_Sprite_1
+  - first:
+      213: 3514370679991819372
+    second: Nucleo_Sprite_2
+  - first:
+      213: 3779081004111424016
+    second: Nucleo_Sprite_3
+  - first:
+      213: 5181914526026149397
+    second: Nucleo_Sprite_4
+  - first:
+      213: -4025297096862869433
+    second: Nucleo_Sprite_5
+  - first:
+      213: 3209648496287643747
+    second: Nucleo_Sprite_6
+  - first:
+      213: 2414381039800225115
+    second: Nucleo_Sprite_7
+  - first:
+      213: -8513359049491455756
+    second: Nucleo_Sprite_8
+  - first:
+      213: 6874103986879847175
+    second: Nucleo_Sprite_9
+  - first:
+      213: 226416141079840334
+    second: Nucleo_Sprite_10
+  - first:
+      213: 228714360186242174
+    second: Nucleo_Sprite_11
+  - first:
+      213: 2846490584076156655
+    second: Nucleo_Sprite_12
+  - first:
+      213: -4777323817762351695
+    second: Nucleo_Sprite_13
+  - first:
+      213: 2575408151396032402
+    second: Nucleo_Sprite_14
+  - first:
+      213: 8069628582049939412
+    second: Nucleo_Sprite_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 400
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Nucleo_Sprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc017f6ceda4e6f20800000000000000
+      internalID: 3417751487902060749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nucleo_Sprite_1
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c59f0b25a0dd659f0800000000000000
+      internalID: -479953273861637796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nucleo_Sprite_2
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6cd5f5738d85c030800000000000000
+      internalID: 3514370679991819372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nucleo_Sprite_3
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01aec7b962ef17430800000000000000
+      internalID: 3779081004111424016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nucleo_Sprite_4
+      rect:
+        serializedVersion: 2
+        x: 1892
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51ea9347ecbd9e740800000000000000
+      internalID: 5181914526026149397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nucleo_Sprite_5
+      rect:
+        serializedVersion: 2
+        x: 2365
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 748d31a0e954328c0800000000000000
+      internalID: -4025297096862869433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nucleo_Sprite_6
+      rect:
+        serializedVersion: 2
+        x: 2838
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 368771b4d46fa8c20800000000000000
+      internalID: 3209648496287643747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nucleo_Sprite_7
+      rect:
+        serializedVersion: 2
+        x: 3311
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5d0bb583ca918120800000000000000
+      internalID: 2414381039800225115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nucleo_Sprite_8
+      rect:
+        serializedVersion: 2
+        x: 3784
+        y: 0
+        width: 473
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f064b9dc097ad980800000000000000
+      internalID: -8513359049491455756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 60f4974398f48a3418cd574bc660017b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":9.0,"y":1.0},"gridSpriteSize":{"x":473.0,"y":500.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Nucleo_Sprite_0: 3417751487902060749
+      Nucleo_Sprite_1: -479953273861637796
+      Nucleo_Sprite_2: 3514370679991819372
+      Nucleo_Sprite_3: 3779081004111424016
+      Nucleo_Sprite_4: 5181914526026149397
+      Nucleo_Sprite_5: -4025297096862869433
+      Nucleo_Sprite_6: 3209648496287643747
+      Nucleo_Sprite_7: 2414381039800225115
+      Nucleo_Sprite_8: -8513359049491455756
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

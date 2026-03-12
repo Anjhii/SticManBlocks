@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelConfig[] levels;
     
     [Header("Portal Settings")]
-    [SerializeField] private GameObject portalPrefab;
+    [SerializeField] private LevelPortal portalActivator;
     [SerializeField] private float deathYLimit = -10f;
     
     private LevelConfig currentConfig;
@@ -122,10 +122,12 @@ public class LevelManager : MonoBehaviour
     private void SpawnPortal()
     {
         portalSpawned = true;
-        // El portal aparece un poco más arriba de la meta para que el jugador lo vea venir
-        Vector2 portalPos = new Vector2(0f, targetY + 0.5f); 
-        Instantiate(portalPrefab, portalPos, Quaternion.identity);
-        Debug.Log("¡Portal Generado! Ve hacia él.");
+
+        if (portalActivator != null)
+        {
+            portalActivator.EnableCollider(); // Solo habilita el collider, ya es visible
+            Debug.Log("¡Portal habilitado!");
+        }
     }
 
     public void RespawnPlayerAtTop()
