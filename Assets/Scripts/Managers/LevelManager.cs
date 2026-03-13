@@ -11,7 +11,7 @@ public struct LevelConfig
     public float spawnInterval;
     public float timeLimit;
     public int startingLives; 
-    public float futureScrollSpeed; // Preparado para la siguiente fase
+    public float darknessOpacity;
 }
 
 public class LevelManager : MonoBehaviour
@@ -24,8 +24,11 @@ public class LevelManager : MonoBehaviour
     
     [Header("Portal Settings")]
     [SerializeField] private LevelPortal portalActivator;
-    [SerializeField] private float deathYLimit = -10f;
-    
+
+    [Header("Visual Effects")]
+    [Tooltip("Arrastra aquí tu objeto DarknessOverlay")]
+    [SerializeField] private SpriteRenderer darknessOverlay;
+
     private LevelConfig currentConfig;
     private Transform playerTransform;
     private Rigidbody2D playerRb;
@@ -71,6 +74,13 @@ public class LevelManager : MonoBehaviour
         //Debug.Log($"<color=yellow>Parámetros Cargados:</color> Vel. Bloques: {currentConfig.blockFallSpeed} | Vel. Obstáculos: {currentConfig.obstacleFallSpeed} | Intervalo Spawn: {currentConfig.spawnInterval}");
         //Debug.Log($"Tiempo Límite: {currentConfig.timeLimit} | Vidas Iniciales: {currentConfig.startingLives}, Número de Pantallas: {currentConfig.numberOfScreens}");
 
+        if (darknessOverlay != null)
+        {
+            Color overlayColor = darknessOverlay.color;
+            // Modificamos solo el canal Alfa (Transparencia)
+            overlayColor.a = currentConfig.darknessOpacity;
+            darknessOverlay.color = overlayColor;
+        }
 
         // Le enviamos al GameManager las vidas y el tiempo límite de este nivel
         GameManager.Instance.InitializeLevelParameters(currentConfig.timeLimit, currentConfig.startingLives);
