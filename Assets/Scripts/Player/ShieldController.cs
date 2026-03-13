@@ -40,6 +40,7 @@ public class ShieldController : MonoBehaviour
 
     private IEnumerator ShieldRoutine(float swipeMagnitude)
     {
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.powerupVF);
         GameManager.Instance.IsShieldActive = true;
         shieldVisual.SetActive(true);
 
@@ -61,12 +62,19 @@ public class ShieldController : MonoBehaviour
 
             yield return null; // Esperamos al siguiente frame
         }
-
+        
         if (UIManager.Instance != null) UIManager.Instance.UpdatePowerUpTimer(0f);
 
         // Apagamos el escudo
         shieldVisual.SetActive(false);
         GameManager.Instance.IsShieldActive = false;
-        Debug.Log("Escudo Desactivado");
+
+        int lvl = GameManager.Instance.CurrentLevel;
+        if (AudioManager.Instance != null)
+        {
+            if (lvl == 1) AudioManager.Instance.PlayMusic(AudioManager.Instance.level1VF);
+            else if (lvl == 2) AudioManager.Instance.PlayMusic(AudioManager.Instance.level2VF);
+            else AudioManager.Instance.PlayMusic(AudioManager.Instance.level3VF);
+        }
     }
 }

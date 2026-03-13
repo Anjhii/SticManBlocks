@@ -104,6 +104,8 @@ public class PlayerController : MonoBehaviour
     {
         jumpsRemaining--; 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.jump);
         
         //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }

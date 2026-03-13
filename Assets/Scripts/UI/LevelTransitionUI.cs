@@ -13,6 +13,7 @@ public class LevelTransitionUI : MonoBehaviour
         // Mostramos el nivel actual leyendo el dato persistente
         levelText.text = "LEVEL " + GameManager.Instance.CurrentLevel;
         StartCoroutine(TransitionRoutine());
+        AudioManager.Instance.FadeOutMusic(2f);
     }
 
     private IEnumerator TransitionRoutine()

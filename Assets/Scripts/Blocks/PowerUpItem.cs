@@ -10,6 +10,7 @@ public class PowerUpItem : MonoBehaviour
         {
             // Le avisamos al GameManager que recolectamos el poder (esto activará el botón UI)
             GameManager.Instance.CollectPowerUp();
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.takePowerup);
             
             // Nos destruimos
             Destroy(gameObject);

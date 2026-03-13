@@ -32,6 +32,7 @@ public class LevelPortal : MonoBehaviour
             playerEntered = true;
             col.enabled = false;
             StartCoroutine(WaitForPortalAnimation());
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.nextLevelPortal);
         }
     }
 

@@ -26,6 +26,7 @@ public class MainMenuUI : MonoBehaviour
         {
             Instantiate(gameManagerPrefab);
         }
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.inicioVF);
     }
 
     // ---- Botones ----

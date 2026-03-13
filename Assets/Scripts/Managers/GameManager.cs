@@ -168,6 +168,7 @@ public class GameManager : MonoBehaviour
         LastGameOverReason = reason;
         
         SceneManager.LoadScene("GameOver");
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.gameOverMusic);
     }
 
     // Llamado cuando el jugador toca el item raro
@@ -229,6 +230,7 @@ public class GameManager : MonoBehaviour
         if (CurrentLevel >= 3) 
         {
             SceneManager.LoadScene("Victory");
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.winMusic);
         }
         else
         {
