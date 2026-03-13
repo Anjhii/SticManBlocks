@@ -110,13 +110,13 @@ public class PlayerController : MonoBehaviour
 
     private void LoadSkin()
     {
+        // ✅ Null check
+        if (GameManager.Instance == null) return;
+        
         GameObject skinPrefab = GameManager.Instance.GetSelectedSkinPrefab();
         if (skinPrefab != null && skinContainer != null)
         {
-            // Instanciamos la skin como hija del SkinContainer
             GameObject mySkin = Instantiate(skinPrefab, skinContainer);
-            
-            // Atrapamos el Animator de esta nueva skin para que el movimiento lo controle
             animator = mySkin.GetComponent<Animator>();
         }
     }

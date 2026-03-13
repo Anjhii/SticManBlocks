@@ -460,7 +460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4384353653566794891, guid: f592ee14bc6e92c42825da2e60d5b598, type: 3}
       propertyPath: delayBeforeLevelChange
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9160554926993863235, guid: f592ee14bc6e92c42825da2e60d5b598, type: 3}
       propertyPath: m_Name
