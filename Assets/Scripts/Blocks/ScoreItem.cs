@@ -13,7 +13,7 @@ public class ScoreItem : MonoBehaviour
         {
             // Añadimos los puntos usando nuestro GameManager centralizado
             GameManager.Instance.AddScore(pointsToGive);
-            
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.money1);
             // Destruimos el objeto recolectable
             Destroy(gameObject);
         }

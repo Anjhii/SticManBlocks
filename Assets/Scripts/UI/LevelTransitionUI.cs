@@ -36,6 +36,7 @@ public class LevelTransitionUI : MonoBehaviour
 
         StartCoroutine(TransitionRoutine());
         StartCoroutine(CycleTips());
+        AudioManager.Instance.FadeOutMusic(2f);
     }
 
     private IEnumerator TransitionRoutine()

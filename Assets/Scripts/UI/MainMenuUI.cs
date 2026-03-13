@@ -24,6 +24,8 @@ public class MainMenuUI : MonoBehaviour
     {
         if (GameManager.Instance == null && gameManagerPrefab != null)
             Instantiate(gameManagerPrefab);
+        }
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.inicioVF);
     }
 
     public void OnPlayClicked()

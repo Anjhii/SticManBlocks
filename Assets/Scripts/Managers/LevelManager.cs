@@ -98,6 +98,11 @@ public class LevelManager : MonoBehaviour
             float screenHeight = screenTopY * 2f;
             targetY = startY + (currentConfig.numberOfScreens * screenHeight);
         }
+
+        int level = GameManager.Instance.CurrentLevel;
+        if (level == 1) AudioManager.Instance.PlayMusic(AudioManager.Instance.level1VF);
+        else if (level == 2) AudioManager.Instance.PlayMusic(AudioManager.Instance.level2VF);
+        else if (level == 3) AudioManager.Instance.PlayMusic(AudioManager.Instance.level3VF);
     }
 
     private void Update()

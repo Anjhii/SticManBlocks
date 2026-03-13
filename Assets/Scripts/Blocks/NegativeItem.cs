@@ -86,10 +86,11 @@ public class NegativeItem : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.dano);
             // ¿El escudo está activo?
             if (GameManager.Instance.IsShieldActive)
             {
-                Debug.Log("¡Escudo desvió el daño!");
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.powerupVF);
                 Destroy(gameObject);
                 return; 
             }
