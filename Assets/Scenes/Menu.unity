@@ -379,6 +379,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2764183421649828699, guid: faa0eea1cae396c409925301c9bd6a82, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8495029247753111298, guid: faa0eea1cae396c409925301c9bd6a82, type: 3}
       propertyPath: m_Name
       value: Block
@@ -1199,7 +1203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sky Ruins
+  m_text: sky ruins
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50af2fc7aac3af546a931d2def09a924, type: 2}
   m_sharedMaterial: {fileID: -4131196837905040515, guid: 50af2fc7aac3af546a931d2def09a924, type: 2}
@@ -1377,6 +1381,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  movementEnabled: 0
   animator: {fileID: 933536987}
   skinContainer: {fileID: 458669541}
 --- !u!61 &933536990
@@ -1960,10 +1965,10 @@ MonoBehaviour:
   playButton: {fileID: 457847910}
   skinsButton: {fileID: 458396403}
   exitButton: {fileID: 1638777209}
-  floatingScript: {fileID: 0}
-  floatingGroup: {fileID: 0}
+  floatingScript: {fileID: 1905816639}
+  floatingGroup: {fileID: 1905816638}
   uiExitDuration: 0.4
-  fallGravity: 800
+  fallGravity: 300
 --- !u!4 &1608360232
 Transform:
   m_ObjectHideFlags: 0

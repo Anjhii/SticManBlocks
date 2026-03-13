@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 102935236}
   - component: {fileID: 102935235}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Pilar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Skins
+  m_text: skins
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50af2fc7aac3af546a931d2def09a924, type: 2}
   m_sharedMaterial: {fileID: -4131196837905040515, guid: 50af2fc7aac3af546a931d2def09a924, type: 2}

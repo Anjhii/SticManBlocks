@@ -2911,7 +2911,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4179538247557164711}
@@ -2964,7 +2964,7 @@ SpriteMask:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8177471321811730583, guid: 87aaca0a643d54397ba969dab4fc8875, type: 3}
+  m_Sprite: {fileID: 2687907647977290427, guid: ebd8bcf4cc32cd24696c435fd081c61b, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: -1961672947
   m_BackSortingLayerID: 0
@@ -3573,8 +3573,8 @@ MonoBehaviour:
   shrinkSpeed: 5
   lifeScales:
   - 0
-  - 5
-  - 12
+  - 0.8
+  - 2.5
   - 33
   - 33
   - 33

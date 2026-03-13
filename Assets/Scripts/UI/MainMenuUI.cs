@@ -13,22 +13,18 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private RectTransform exitButton;
 
     [Header("Floating Character")]
-    [SerializeField] private FloatingAnimation floatingScript; // tu script del padre
-    [SerializeField] private RectTransform floatingGroup;      // el GameObject padre
+    [SerializeField] private FloatingAnimation floatingScript;
+    [SerializeField] private GameObject floatingGroup;
 
     [Header("Animation Settings")]
     [SerializeField] private float uiExitDuration = 0.4f;
-    [SerializeField] private float fallGravity = 800f;
+    [SerializeField] private float fallGravity = 20f; // ✅ Ajustado para Transform normal
 
     private void Start()
     {
         if (GameManager.Instance == null && gameManagerPrefab != null)
-        {
             Instantiate(gameManagerPrefab);
-        }
     }
-
-    // ---- Botones ----
 
     public void OnPlayClicked()
     {
@@ -45,25 +41,19 @@ public class MainMenuUI : MonoBehaviour
         Application.Quit();
     }
 
-    // ---- Animación de salida ----
-
     IEnumerator PlayExitSequence()
     {
-        // 1. Deshabilitar botones para que no se pueda clickear de nuevo
         SetButtonsInteractable(false);
 
-        // 2. UI sale en paralelo
-        StartCoroutine(SlideOut(titleText,   Vector2.up   * 1200f, uiExitDuration));
+        StartCoroutine(SlideOut(titleText,   Vector2.up    * 1200f, uiExitDuration));
         StartCoroutine(SlideOut(playButton,  Vector2.right * 1200f, uiExitDuration));
-        StartCoroutine(SlideOut(skinsButton, Vector2.left * 1200f, uiExitDuration));
+        StartCoroutine(SlideOut(skinsButton, Vector2.left  * 1200f, uiExitDuration));
         StartCoroutine(SlideOut(exitButton,  Vector2.right * 1200f, uiExitDuration));
 
         yield return new WaitForSeconds(uiExitDuration * 0.6f);
 
-        // 3. El personaje cae
         yield return StartCoroutine(CharacterFallAndExit());
 
-        // 4. Recién acá llamamos al GameManager
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.StartNewGame();
     }
@@ -90,19 +80,24 @@ public class MainMenuUI : MonoBehaviour
     IEnumerator CharacterFallAndExit()
     {
         if (floatingScript != null)
-            floatingScript.enabled = false; // detiene el floating
+            floatingScript.enabled = false;
 
-        Vector2 velocity = Vector2.zero;
-        float elapsed    = 0f;
-        float maxTime    = 3f;
+        if (floatingGroup == null) yield break;
+
+        // ✅ Usamos Transform normal en lugar de RectTransform
+        Transform floatingTransform = floatingGroup.transform;
+        Vector3 velocity = Vector3.zero;
+        float elapsed = 0f;
+        float maxTime = 3f;
 
         while (elapsed < maxTime)
         {
-            elapsed    += Time.deltaTime;
+            elapsed += Time.deltaTime;
             velocity.y -= fallGravity * Time.deltaTime;
-            floatingGroup.anchoredPosition += velocity * Time.deltaTime;
+            floatingTransform.position += velocity * Time.deltaTime;
 
-            if (floatingGroup.anchoredPosition.y < -Screen.height * 3f)
+            // Sale de pantalla hacia abajo
+            if (floatingTransform.position.y < -20f)
                 break;
 
             yield return null;
