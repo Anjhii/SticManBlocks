@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2764183421649828699}
   - component: {fileID: 3430399529684333559}
   m_Layer: 6
-  m_Name: Block
+  m_Name: Plat_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: c5a3b96ce34d5184e83aa5df87b61fd8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b3a4837c0a9e24249a7aa89284fe106e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6534beffb3f7b44aa8bf2b5bd9b0c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
-  fallSpeed: 1.5
 --- !u!251 &3430399529684333559
 PlatformEffector2D:
   m_ObjectHideFlags: 0

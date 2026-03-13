@@ -1,10 +1,9 @@
 using UnityEngine;
 
-// 1. EL MOLDE DE PARAMETRIZACIÓN
 [System.Serializable]
 public struct LevelConfig
 {
-    public int numberOfScreens; // Altura objetivo (Ej: 1)
+    public int numberOfScreens;
     public float blockFallSpeed; 
     public float minObstacleSpeed; 
     public float maxObstacleSpeed; 
@@ -12,6 +11,10 @@ public struct LevelConfig
     public float timeLimit;
     public int startingLives; 
     public float darknessOpacity;
+
+    [Header("Visuales del Nivel")]
+    public GameObject backgroundPrefab;
+    public GameObject blockPrefab;
 }
 
 public class LevelManager : MonoBehaviour
@@ -29,11 +32,13 @@ public class LevelManager : MonoBehaviour
     [Tooltip("Arrastra aquí tu objeto DarknessOverlay")]
     [SerializeField] private SpriteRenderer darknessOverlay;
 
+    [Header("Contenedores")]
+    [SerializeField] private Transform backgroundContainer; // ✅ Arrastra el BackgroundContainer aquí
+
     private LevelConfig currentConfig;
     private Transform playerTransform;
     private Rigidbody2D playerRb;
     
-    // Variables de progreso
     private float startY;
     private float targetY;
     private float highestYReached;
@@ -56,45 +61,30 @@ public class LevelManager : MonoBehaviour
             highestYReached = startY;
         }
 
-        // 2. CARGAMOS LA CONFIGURACIÓN DEL NIVEL ACTUAL
-        int levelIndex = GameManager.Instance.CurrentLevel - 1; // Level 1 es índice 0
+        int levelIndex = GameManager.Instance.CurrentLevel - 1;
         
-        // Protección anti-errores si no has creado suficientes niveles en el Inspector
         if (levelIndex >= 0 && levelIndex < levels.Length)
-        {
             currentConfig = levels[levelIndex];
-        }
         else
         {
             Debug.LogWarning("Nivel no configurado, usando Nivel 1 por defecto.");
             currentConfig = levels[0];
         }
 
-        //Debug.Log($"<color=cyan>[LEVEL MANAGER]</color> Iniciando Nivel {GameManager.Instance.CurrentLevel}.");
-        //Debug.Log($"<color=yellow>Parámetros Cargados:</color> Vel. Bloques: {currentConfig.blockFallSpeed} | Vel. Obstáculos: {currentConfig.obstacleFallSpeed} | Intervalo Spawn: {currentConfig.spawnInterval}");
-        //Debug.Log($"Tiempo Límite: {currentConfig.timeLimit} | Vidas Iniciales: {currentConfig.startingLives}, Número de Pantallas: {currentConfig.numberOfScreens}");
-
         if (darknessOverlay != null)
         {
             Color overlayColor = darknessOverlay.color;
-            // Modificamos solo el canal Alfa (Transparencia)
             overlayColor.a = currentConfig.darknessOpacity;
             darknessOverlay.color = overlayColor;
         }
 
-        // Le enviamos al GameManager las vidas y el tiempo límite de este nivel
         GameManager.Instance.InitializeLevelParameters(currentConfig.timeLimit, currentConfig.startingLives);
         float screenTopY = Camera.main.orthographicSize;
         
         if (currentConfig.numberOfScreens <= 1)
-        {
-            // Si es 1 pantalla, la meta es casi el tope superior de la cámara actual.
-            // Restamos 1.5f para que la meta esté dentro del área visible y alcanzable.
             targetY = screenTopY - 1.5f; 
-        }
         else
         {
-            // Lógica intacta para cuando implementemos el WorldScroll (Fase 2)
             float screenHeight = screenTopY * 2f;
             targetY = startY + (currentConfig.numberOfScreens * screenHeight);
         }
@@ -103,34 +93,37 @@ public class LevelManager : MonoBehaviour
         if (level == 1) AudioManager.Instance.PlayMusic(AudioManager.Instance.level1VF);
         else if (level == 2) AudioManager.Instance.PlayMusic(AudioManager.Instance.level2VF);
         else if (level == 3) AudioManager.Instance.PlayMusic(AudioManager.Instance.level3VF);
+
+        // ✅ Instancia el fondo del nivel actual
+        if (currentConfig.backgroundPrefab != null && backgroundContainer != null)
+        {
+            foreach (Transform child in backgroundContainer)
+                Destroy(child.gameObject);
+
+            Instantiate(currentConfig.backgroundPrefab, backgroundContainer);
+        }
+        else
+        {
+            Debug.LogWarning("Background Prefab o BackgroundContainer no asignado.");
+        }
     }
 
     private void Update()
     {
         if (playerTransform == null) return;
 
-        // Condición de derrota por caída
-        // En Update(), cambia la condición por esta:
         float limiteDerrota = Camera.main.transform.position.y - Camera.main.orthographicSize - 1f;
 
         if (playerTransform.position.y < limiteDerrota)
-        {
             GameManager.Instance.FallDeath();
-        }
-        // 4. LÓGICA DE PROGRESIÓN (Spawneo del Portal)
+
         if (!portalSpawned)
         {
-            // Registramos la altura máxima alcanzada
             if (playerTransform.position.y > highestYReached)
-            {
                 highestYReached = playerTransform.position.y;
-            }
 
-            // Si llegamos a la altura objetivo, generamos el portal arriba del jugador
             if (highestYReached >= targetY)
-            {
                 SpawnPortal();
-            }
         }
     }
 
@@ -140,14 +133,15 @@ public class LevelManager : MonoBehaviour
 
         if (portalActivator != null)
         {
-            portalActivator.EnableCollider(); // Solo habilita el collider, ya es visible
+            portalActivator.EnableCollider();
             Debug.Log("¡Portal habilitado!");
         }
     }
 
-    // --- GETTERS PÚBLICOS PARA EL RESTO DEL SISTEMA ---
     public float GetBlockSpeed() => currentConfig.blockFallSpeed;
     public float GetMinObstacleSpeed() => currentConfig.minObstacleSpeed;
     public float GetMaxObstacleSpeed() => currentConfig.maxObstacleSpeed;
     public float GetSpawnInterval() => currentConfig.spawnInterval;
+    public GameObject GetBlockPrefab() => currentConfig.blockPrefab;
+    public GameObject GetBackgroundPrefab() => currentConfig.backgroundPrefab;
 }

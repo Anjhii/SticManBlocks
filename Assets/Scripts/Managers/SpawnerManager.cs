@@ -7,7 +7,7 @@ public class SpawnerManager : MonoBehaviour
     private float lastSpawnedBlockY;
 
     [Header("Prefabs")]
-    [SerializeField] private GameObject blockPrefab;
+    [SerializeField] private GameObject blockPrefab; // ✅ Se usará como respaldo si LevelManager no tiene uno
     
     [Header("Timing Settings")]
     [SerializeField] private float spawnInterval = 0.8f;
@@ -40,34 +40,34 @@ public class SpawnerManager : MonoBehaviour
     private float[] lanePositionsX;
     private Transform playerTransform;
     private float lastSpawnedBlockX = 0f;
+    private GameObject activeBlockPrefab; // ✅ El prefab que realmente se usará
 
     private void Awake()
     {
-        // Inicializamos el Singleton (Esta es la solución definitiva al NullReference)
         if (Instance == null) 
-        {
             Instance = this;
-        }
         else 
-        {
-            Destroy(gameObject); // Evita que existan dos Spawners al mismo tiempo
-        }
+            Destroy(gameObject);
     }
 
     private void Start()
     {
-        
         lastSpawnedBlockY = spawnY;
+
+        // ✅ Pedimos el prefab al LevelManager, si no tiene usamos el del Inspector
+        if (LevelManager.Instance != null && LevelManager.Instance.GetBlockPrefab() != null)
+            activeBlockPrefab = LevelManager.Instance.GetBlockPrefab();
+        else
+        {
+            activeBlockPrefab = blockPrefab;
+            Debug.LogWarning("SpawnerManager: Usando blockPrefab del Inspector como respaldo.");
+        }
 
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null)
-        {
             playerTransform = playerObj.transform;
-        }
         else
-        {
             Debug.LogError("SpawnerManager: No se encontró ningún objeto con el tag 'Player'.");
-        }
 
         CalculateLanes();
         float currentSpawnInterval = LevelManager.Instance.GetSpawnInterval();
@@ -84,9 +84,7 @@ public class SpawnerManager : MonoBehaviour
         float startX = -(screenWidth / 2f) + (laneWidth / 2f);
 
         for (int i = 0; i < numberOfLanes; i++)
-        {
             lanePositionsX[i] = startX + (i * laneWidth);
-        }
     }
 
     private void SpawnBlocks()
@@ -99,9 +97,7 @@ public class SpawnerManager : MonoBehaviour
             int lane2 = Random.Range(0, numberOfLanes);
             
             while (lane2 == lane1)
-            {
                 lane2 = Random.Range(0, numberOfLanes);
-            }
 
             SpawnSingleBlock(lane1);
             SpawnSingleBlock(lane2);
@@ -123,13 +119,12 @@ public class SpawnerManager : MonoBehaviour
     private void SpawnSingleBlock(int laneIndex)
     {
         float spawnX = lanePositionsX[laneIndex];
-
-        
         lastSpawnedBlockY += blockGapY;
         Vector2 spawnPos = new Vector2(spawnX, lastSpawnedBlockY);
         lastSpawnedBlockX = spawnX;
 
-        GameObject newBlock = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
+        // ✅ Usamos el prefab activo del nivel
+        GameObject newBlock = Instantiate(activeBlockPrefab, spawnPos, Quaternion.identity);
 
         if (Random.value < itemSpawnChance && scoreItemPrefabs != null && scoreItemPrefabs.Length > 0)
         {
@@ -160,7 +155,6 @@ public class SpawnerManager : MonoBehaviour
             if (Mathf.Abs(laneX - playerX) > 1f) break;
         }
 
-    
         Vector2 spawnPos = new Vector2(lanePositionsX[safeLaneIndex], lastSpawnedBlockY);
         Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
     }
