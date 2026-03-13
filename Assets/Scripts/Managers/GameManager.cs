@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public event Action OnPlayerHit;
     
     private bool hasPowerUp = false;
+    private int lastScoreEvaluatedForLives = 0;
 
     private void Awake()
     {
@@ -58,7 +59,14 @@ public class GameManager : MonoBehaviour
         {
             currentTime = maxTime;
             isGameActive = true;
+            
+            // --- EL FIX DEL BUG: LIMPIEZA DE ESTADOS ZOMBIES ---
             hasPowerUp = false;
+            IsShieldActive = false; // Obligamos a apagar cualquier escudo huérfano
+            
+            // Forzamos la actualización a los suscriptores (UI) para que el botón se apague
+            OnPowerUpAvailabilityChanged?.Invoke(false); 
+            // ---------------------------------------------------
 
             if (UIManager.Instance != null)
             {
@@ -95,6 +103,7 @@ public class GameManager : MonoBehaviour
         Score = 0;
         Lives = 3;
         CurrentLevel = 1;
+        lastScoreEvaluatedForLives = 0;
         SceneManager.LoadScene("LevelTransition"); // Vamos a la pantalla de transición primero
     }
 
@@ -187,7 +196,10 @@ public class GameManager : MonoBehaviour
         
         currentTime = timeLimit;
         isGameActive = true;
+
         hasPowerUp = false;
+        IsShieldActive = false; 
+        OnPowerUpAvailabilityChanged?.Invoke(false);
 
         if (UIManager.Instance != null)
         {
@@ -200,11 +212,25 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = false; // Pausamos el tiempo y el juego
         
-        if (CurrentLevel >= 3) // ¡Victoria Total del Juego!
+        int evaluatedPoints = Score - lastScoreEvaluatedForLives;
+        int livesGained = evaluatedPoints / 100;
+        
+        if (livesGained > 0)
+        {
+            Lives += livesGained;
+            
+            // Límite estricto de 5 vidas máximo
+            if (Lives > 5) Lives = 5; 
+
+            // Actualizamos el checkpoint. (Ej: Si teníamos 250, guardamos 200 y sobran 50 para el próximo nivel)
+            lastScoreEvaluatedForLives += livesGained * 100;
+        }
+
+        if (CurrentLevel >= 3) 
         {
             SceneManager.LoadScene("Victory");
         }
-        else // Transición al siguiente nivel
+        else
         {
             CurrentLevel++;
             SceneManager.LoadScene("LevelTransition");
